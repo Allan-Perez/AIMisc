@@ -53,7 +53,7 @@ class Param:
 
 def flow(outop, feed_dict={}):
 	graph = graph_reconstruct(outop)
-
+	print('Evaluating the graph...')
 	for node in graph:
 		if isinstance(node, Placeholder):
 			node.outval = feed_dict[node]
@@ -73,12 +73,12 @@ def graph_reconstruct(node):
 			for in_node in node_.in_nodes:
 				reconstruct(in_node)
 		graph.append(node_)
-
+	print('reconstructing the graph...')
 	reconstruct(node)
-	print('Reconstructed graph:', graph )
+	print('reconstructed!')
 	return graph
 
-def __main():
+def main():
 	x_vect = np.array([2,1])
 
 	matmult = lambda A,x: A.dot(x)
@@ -97,4 +97,4 @@ def __main():
 	print('Output vector:',  output_vect)
 
 if __name__ == '__main__':
-	__main()
+	main()
